@@ -110,6 +110,7 @@ public class HttpUtil {
                         //data 不能是list，必须为object
                         Type type = new ParameterizedTypeImpl(DataResult.class, new Class[]{clazz});
                         DataResult<T> entity = gson.fromJson(body, type);
+                        entity.setDataType(DataResult.CODE_NETWORK_SUCCESS);
                         return Observable.just(entity);
                     }
                 });

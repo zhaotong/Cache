@@ -45,20 +45,21 @@ public class DataProvider {
             DataResult<T> result = DiskCacheManager.getInstance().getSerializable(key);
             if (result == null) {
                 result = new DataResult<>();
-                result.setCode(DataResult.CODE_CACHE_NULL);
+                result.setDataType(DataResult.CODE_CACHE_NULL);
             }
             resultObservable = Observable
                     .concat(Observable.just(result), httpObservable)
                     .filter(new Predicate<DataResult<T>>() {
                         @Override
                         public boolean test(DataResult<T> dataResult) throws Exception {
-                            return dataResult.getCode() != DataResult.CODE_CACHE_NULL;
+                            return dataResult.getDataType() != DataResult.CODE_CACHE_NULL;
                         }
                     })
                     .flatMap(new Function<DataResult<T>, ObservableSource<DataResult<T>>>() {
                         @Override
                         public ObservableSource<DataResult<T>> apply(DataResult<T> dataResult) throws Exception {
-                            DiskCacheManager.getInstance().put(key, dataResult);
+                            if (dataResult.getDataType() == DataResult.CODE_NETWORK_SUCCESS)
+                                DiskCacheManager.getInstance().put(key, dataResult);
                             return Observable.just(dataResult);
                         }
                     });
