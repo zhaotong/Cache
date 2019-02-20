@@ -1,4 +1,4 @@
-package cn.thecover.www.cache.dataprovider;
+package com.tone.cache.dataprovider;
 
 import java.io.Serializable;
 

@@ -1,13 +1,15 @@
-package cn.thecover.www.cache.dataprovider;
+package com.tone.cache.dataprovider;
 
 
 import java.util.Map;
 
-import cn.thecover.www.cache.dataprovider.cache.DiskCacheManager;
-import cn.thecover.www.cache.dataprovider.http.HttpUtil;
+import com.tone.cache.dataprovider.cache.DiskCacheManager;
+import com.tone.cache.dataprovider.http.HttpUtil;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 
 public class DataProvider {
     private static DataProvider instance;
@@ -40,20 +42,29 @@ public class DataProvider {
         if (useCache) {
 
             final String key = url + map.toString();
-            final DataResult<T> result = DiskCacheManager.getInstance().getSerializable(key);
-
+            DataResult<T> result = DiskCacheManager.getInstance().getSerializable(key);
+            if (result == null) {
+                result = new DataResult<>();
+                result.setCode(DataResult.CODE_CACHE_NULL);
+            }
             resultObservable = Observable
                     .concat(Observable.just(result), httpObservable)
+                    .filter(new Predicate<DataResult<T>>() {
+                        @Override
+                        public boolean test(DataResult<T> dataResult) throws Exception {
+                            return dataResult.getCode() != DataResult.CODE_CACHE_NULL;
+                        }
+                    })
                     .flatMap(new Function<DataResult<T>, ObservableSource<DataResult<T>>>() {
                         @Override
                         public ObservableSource<DataResult<T>> apply(DataResult<T> dataResult) throws Exception {
-                            DiskCacheManager.getInstance().put(key,dataResult);
+                            DiskCacheManager.getInstance().put(key, dataResult);
                             return Observable.just(dataResult);
                         }
                     });
-
         } else {
             resultObservable = httpObservable;
+
         }
 
         return resultObservable;

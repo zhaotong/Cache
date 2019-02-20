@@ -1,4 +1,4 @@
-package cn.thecover.www.cache.dataprovider.http;
+package com.tone.cache.dataprovider.http;
 
 import java.util.Map;
 

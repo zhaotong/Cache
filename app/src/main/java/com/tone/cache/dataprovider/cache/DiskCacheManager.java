@@ -1,4 +1,4 @@
-package cn.thecover.www.cache.dataprovider.cache;
+package com.tone.cache.dataprovider.cache;
 
 import android.content.Context;
 import android.os.Environment;
@@ -19,7 +19,7 @@ import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.security.MessageDigest;
 
-import cn.thecover.www.cache.App;
+import com.tone.cache.App;
 
 public class DiskCacheManager {
 

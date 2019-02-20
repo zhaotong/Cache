@@ -1,15 +1,16 @@
-package cn.thecover.www.cache.dataprovider.http;
+package com.tone.cache.dataprovider.http;
 
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.tone.cache.dataprovider.DataResult;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import cn.thecover.www.cache.dataprovider.DataResult;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 import okhttp3.Interceptor;
@@ -96,7 +97,7 @@ public class HttpUtil {
         return retrofit;
     }
 
-    public <T> Observable<DataResult<T>> postData(String url, Map<String, String> map,Class<T> clazz) {
+    public <T> Observable<DataResult<T>> postData(String url, Map<String, String> map, Class<T> clazz) {
         return retrofit
                 .create(Api.class)
                 .getDate(url, map)

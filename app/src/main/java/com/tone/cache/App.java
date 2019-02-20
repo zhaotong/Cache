@@ -1,4 +1,4 @@
-package cn.thecover.www.cache;
+package com.tone.cache;
 
 import android.app.Application;
 

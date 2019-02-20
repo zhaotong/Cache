@@ -1,7 +1,9 @@
-package cn.thecover.www.cache.dataprovider.http;
+package com.tone.cache.dataprovider.http;
 
 
-import cn.thecover.www.cache.dataprovider.DataResult;
+
+import com.tone.cache.dataprovider.DataResult;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 

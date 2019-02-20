@@ -1,4 +1,4 @@
-package cn.thecover.www.cache;
+package com.tone.cache;
 
 import android.Manifest;
 import android.os.Bundle;
@@ -9,13 +9,13 @@ import android.view.View;
 
 import java.util.HashMap;
 
-import cn.thecover.www.cache.dataprovider.DataProvider;
-import cn.thecover.www.cache.dataprovider.DataResult;
-import cn.thecover.www.cache.dataprovider.http.CallBackObserver;
-import cn.thecover.www.cache.dataprovider.http.CompositeDisposableHelper;
-import io.reactivex.Observable;
+
+import com.tone.cache.dataprovider.DataProvider;
+import com.tone.cache.dataprovider.DataResult;
+import com.tone.cache.dataprovider.http.CallBackObserver;
+
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
